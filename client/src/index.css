@@ -1,0 +1,155 @@
+/* Import Tailwind's core styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Set default styles for the application.
+  We'll use a dark theme by default on the root html tag.
+*/
+@layer base {
+  :root {
+    /* Black & Red theme tokens (dark baseline) */
+    --md-sys-color-primary: #ef4444; /* red-500 */
+    --md-sys-color-on-primary: #0a0a0a; /* near-black text on primary */
+    --md-sys-color-primary-container: #7f1d1d; /* deep red container */
+    --md-sys-color-on-primary-container: #ffe5e5; /* light text on container */
+
+    --md-sys-color-secondary: #f87171; /* red-400 for secondary */
+    --md-sys-color-on-secondary: #0a0a0a;
+    --md-sys-color-secondary-container: #3f0f0f; /* dark red-brown */
+    --md-sys-color-on-secondary-container: #ffe5e5;
+
+    --md-sys-color-tertiary: #fb7185; /* rose-400 for accents */
+    --md-sys-color-on-tertiary: #0a0a0a;
+    --md-sys-color-tertiary-container: #4a0e16; /* deep rose container */
+    --md-sys-color-on-tertiary-container: #ffdbe1;
+
+    --md-sys-color-surface: #0a0a0a; /* near pure black */
+    --md-sys-color-surface-variant: #111111; /* slightly lighter for cards */
+    --md-sys-color-on-surface: #f3f4f6; /* light text */
+    --md-sys-color-outline: #262626; /* subtle border on black */
+
+    --md-sys-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.20), 0 1px 3px 1px rgb(0 0 0 / 0.14);
+    --md-sys-elevation-2: 0 2px 6px 0 rgb(0 0 0 / 0.24), 0 2px 8px 2px rgb(0 0 0 / 0.18);
+    --md-sys-elevation-3: 0 4px 10px 0 rgb(0 0 0 / 0.28), 0 3px 14px 3px rgb(0 0 0 / 0.20);
+
+    --md-radius-lg: 0.75rem;
+    --md-radius-xl: 1rem;
+  }
+
+  html.dark {
+    @apply bg-gray-900 text-gray-200;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+  }
+  
+  /* You can add other base styles here */
+  body {
+    @apply min-h-screen antialiased;
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  /* Global form controls (dark + red accent) */
+  input,
+  select,
+  textarea {
+    @apply w-full bg-[color:var(--md-sys-color-surface-variant)] text-[color:var(--md-sys-color-on-surface)] placeholder-gray-500 border border-[color:var(--md-sys-color-outline)] rounded-lg px-3 py-2 outline-none transition;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    @apply ring-2 ring-red-500 border-red-500;
+  }
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+}
+
+/* Components: Material You-like helpers */
+@layer components {
+  /* Cards */
+  .md-card {
+    @apply rounded-xl; /* Tailwind rounded, refined via CSS variables below */
+    border: 1px solid var(--md-sys-color-outline);
+    background: var(--md-sys-color-surface-variant);
+    border-radius: var(--md-radius-xl);
+    box-shadow: var(--md-sys-elevation-1);
+    transition: transform 150ms ease, box-shadow 150ms ease, background-color 200ms ease;
+  }
+  .md-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--md-sys-elevation-2);
+  }
+
+  /* Buttons */
+  .md-button {
+    @apply inline-flex items-center justify-center font-semibold rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed;
+    border-radius: var(--md-radius-lg);
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 100ms ease;
+  }
+  .md-button:active {
+    transform: translateY(0.5px);
+  }
+  .md-button-filled {
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    box-shadow: var(--md-sys-elevation-1);
+  }
+  .md-button-filled:hover {
+    box-shadow: var(--md-sys-elevation-2);
+  }
+  .md-button-tonal {
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+  }
+  .md-button-tonal:hover {
+    filter: brightness(1.05);
+  }
+  .md-button-outline {
+    background: transparent;
+    color: var(--md-sys-color-on-surface);
+    border: 1px solid var(--md-sys-color-outline);
+  }
+  .md-button-outline:hover {
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  /* Chips / Pills */
+  .md-chip {
+    @apply inline-flex items-center px-3 py-1 text-sm font-medium;
+    background: rgb(255 255 255 / 0.06);
+    color: var(--md-sys-color-on-surface);
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: 9999px;
+  }
+
+  /* Inputs (optional utility class) */
+  .md-input {
+    @apply w-full bg-[color:var(--md-sys-color-surface-variant)] text-[color:var(--md-sys-color-on-surface)] placeholder-gray-500 border border-[color:var(--md-sys-color-outline)] rounded-lg px-3 py-2 outline-none transition;
+  }
+  .md-input:focus {
+    @apply ring-2 ring-red-500 border-red-500;
+  }
+
+  .md-label {
+    @apply text-sm font-medium text-gray-300 mb-1 block;
+  }
+
+  /* Simple badge */
+  .badge-red {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-red-500/15 text-red-300 border border-red-700/40;
+  }
+
+  /* Headings */
+  .md-h1 { @apply text-4xl font-bold; }
+  .md-h2 { @apply text-2xl font-semibold; }
+  .md-h3 { @apply text-xl font-semibold; }
+
+  /* Surfaces */
+  .md-surface { background: var(--md-sys-color-surface); }
+  .md-surface-variant { background: var(--md-sys-color-surface-variant); }
+}
